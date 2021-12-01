@@ -18,6 +18,7 @@ full_name"                      "age"                            "birthday"
 [28] "conceded_home"                  "conceded_away"                  "yellow_cards_overall"          
 [31] "red_cards_overall"              
 
+Stolpci so pravilnega tipa, torej dbl in Chr, ter date. Pri cemer bom stolpec date razdelil na tri.
 
 ## Program
 
