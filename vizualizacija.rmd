@@ -1,0 +1,141 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+```
+
+```{r}
+podatki_v = read.csv("podatki/podatki_v.csv", fileEncoding = "utf8")
+podatki_1 = read.csv("podatki/podatki_1.csv", fileEncoding = "utf8")
+podatki_2 = read.csv("podatki/podatki_2.csv", fileEncoding = "utf8") 
+```
+
+```{r}
+klub_kratica = tibble(klub = klubi$klub,
+                      kratica = c(
+                        "ARS",
+                        "BRI",
+                        "BUR",
+                        "CHE",
+                        "CRY",
+                        "EVE",
+                        "LEI",
+                        "LIV",
+                        "MCI",
+                        "MUN",
+                        "NEW",
+                        "SOT",
+                        "TOT",
+                        "WHU"
+                      ))
+
+```
+
+Tabela 1
+```{r}
+tabela_1 = podatki_2 %>% select(nacionalnost, klub) %>% 
+  group_by(klub, nacionalnost) %>% 
+  distinct() %>% 
+  group_by(klub) %>%
+  count() %>%
+  left_join(klub_kratica, by= "klub") %>%
+  ungroup() %>%
+  select(klub = kratica, n)
+```
+
+```{r}
+tabela_1 %>%
+  ggplot(
+    mapping = aes(x = klub, y = n, fill = klub, colors(distinct = FALSE))
+  ) +
+  geom_bar(
+           width = 0.8,
+           stat = "identity") +
+  labs(
+      x = "Klub",
+      y = "Stevilo razlicnih drzav"
+    ) +
+  theme_classic() +
+  theme(
+    axis.text.x = element_text(angle = 90,vjust = 0.5),
+    axis.title.x = element_text(vjust = 0)
+  ) +
+  scale_color_gradientn(colours = rainbow(15))
+
+
+```
+```{r}
+tabela_1 %>%
+  ggplot(
+    mapping = aes(x = "", y = n, fill = klub, colors(distinct = FALSE))
+  ) +
+  geom_bar(
+           width = 0.8,
+           stat = "identity") +
+  labs(
+      x = "Klub",
+      y = "Stevilo razlicnih drzav"
+    ) +
+  theme_classic() +
+  theme(
+    axis.text.x = element_text(angle = 0,vjust = 0.5),
+    axis.title.x = element_text(vjust = 0)
+  ) +
+  scale_color_gradientn(colours = rainbow(15)) +
+  coord_polar("y")
+
+
+```
+
+Tabela 2
+
+neki k gre casovno
+delez golov, ki so jih dali doma glede na vse gole
+```{r}
+tabela_2 = podatki_2 %>% 
+  group_by(klub, sezona) %>%
+  summarise(vsi_goli = sum(goli.skupno) , doma_goli = sum(goli.doma)) %>%
+  mutate(delez.domacih.golov = doma_goli / vsi_goli) %>%
+  mutate(klub = replace(klub, klub == "Brighton & Hove Albion", "Brighton"))
+
+```
+
+
+```{r}
+tabela_2 %>%
+  ggplot(
+    mapping = aes(x = sezona, y = delez.domacih.golov, color = klub, group = klub)
+  ) +
+  geom_point()+
+  geom_line() +
+  theme_light()+
+  theme(
+    axis.text.x = element_text(angle = 90,vjust = 0.5),
+    axis.title.x = element_text(vjust = 0)
+  ) + 
+  
+  labs(
+    x = "Sezona",
+    y = "Delez golov zadetih doma",
+    title = "Premier League"
+  )+
+  facet_wrap(~ klub, ncol = 4) 
+
+```
+
+
+
+
+
+
+
+
+
+
