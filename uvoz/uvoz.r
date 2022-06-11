@@ -3,12 +3,29 @@
 
 library(dplyr)
 library(readr)
+library(tidyr)
 
-PL_17_18 = read.csv("podatki/england-premier-league-players-2017-to-2018-stats.csv", fileEncoding = "utf8") 
-PL_18_19 = read.csv("podatki/england-premier-league-players-2018-to-2019-stats.csv", fileEncoding = "utf8") 
-PL_19_20 = read.csv("podatki/england-premier-league-players-2019-to-2020-stats.csv", fileEncoding = "utf8")
-PL_20_21 = read.csv("podatki/england-premier-league-players-2020-to-2021-stats.csv", fileEncoding = "utf8")
-PL_21_22 = read.csv("podatki/england-premier-league-players-2021-to-2022-stats.csv", fileEncoding = "utf8")
+#PL_17_18 = read.csv("podatki/england-premier-league-players-2017-to-2018-stats.csv", fileEncoding = "utf8") 
+#PL_18_19 = read.csv("podatki/england-premier-league-players-2018-to-2019-stats.csv", fileEncoding = "utf8") 
+#PL_19_20 = read.csv("podatki/england-premier-league-players-2019-to-2020-stats.csv", fileEncoding = "utf8")
+#PL_20_21 = read.csv("podatki/england-premier-league-players-2020-to-2021-stats.csv", fileEncoding = "utf8")
+#PL_21_22 = read.csv("podatki/england-premier-league-players-2021-to-2022-stats.csv", fileEncoding = "utf8")
+
+PL_17_18 = read_csv("podatki/england-premier-league-players-2017-to-2018-stats.csv", locale = locale(encoding = "utf8"), col_types = cols(
+  .default = col_guess(),
+  position = col_factor())) 
+PL_18_19 = read_csv("podatki/england-premier-league-players-2018-to-2019-stats.csv", locale = locale(encoding = "utf8"), col_types = cols(
+  .default = col_guess(),
+  position = col_factor()))
+PL_19_20 = read_csv("podatki/england-premier-league-players-2019-to-2020-stats.csv", locale = locale(encoding = "utf8"), col_types = cols(
+  .default = col_guess(),
+  position = col_factor())) 
+PL_20_21 = read_csv("podatki/england-premier-league-players-2020-to-2021-stats.csv", locale = locale(encoding = "utf8"), col_types = cols(
+  .default = col_guess(),
+  position = col_factor())) 
+PL_21_22 = read_csv("podatki/england-premier-league-players-2021-to-2022-stats.csv", locale = locale(encoding = "utf8"), col_types = cols(
+  .default = col_guess(),
+  position = col_factor()))
 
 ###########################################################################################################################################
 #------Vsi zbrani podatki, ki so le malo preoblikovani
@@ -17,7 +34,7 @@ PL_21_22 = read.csv("podatki/england-premier-league-players-2021-to-2022-stats.c
 osnovno_preob = function(tabela) {
   tabela_p = tabela %>%
     select(ime.priimek=full_name, starost=age, datum.rojstva=birthday_GMT,
-           sezona=season, pozicija=position, klub=Current.Club, minute.skupno=minutes_played_overall,
+           sezona=season, pozicija=position, klub=`Current Club`, minute.skupno=minutes_played_overall,
            minute.doma=minutes_played_home, minute.gostovanje=minutes_played_away, nacionalnost=nationality, 
            nastopi.skupno=appearances_overall, nastopi.doma=appearances_home, nastopi.gostovanje=appearances_away, 
            goli.skupno=goals_overall, goli.doma=goals_home, goli.gostovanje=goals_away, asistence.skupno=assists_overall,
@@ -31,8 +48,9 @@ osnovno_preob = function(tabela) {
     tidyr::extract(
       col=datum.rojstva,
       into = c("leto", "mesec", "dan"),
-      regex = "(\\d{4})/(\\d{2})/(\\d{2})"
-    )
+      regex = "(\\d{4})-(\\d{2})-(\\d{2})"
+    ) %>%
+    mutate_at(c("leto", "mesec", "dan"), as.numeric)
 }
 
 PL_17_18 = osnovno_preob(PL_17_18)
@@ -121,32 +139,39 @@ session = bow(url)
 
 st_igralcev = scrape(session) %>%
   html_nodes(".no-border-links+ .zentriert") %>%
-  html_text()
+  html_text() 
+st_igralcev = st_igralcev[c(1:20)]
 
 povprecna_starost = scrape(session) %>%
   html_nodes("tbody .zentriert:nth-child(4)") %>%
   html_text()
+povprecna_starost = povprecna_starost[c(1:20)]
 
 stevilo_tujcev = scrape(session) %>%
   html_nodes("tbody .zentriert:nth-child(5)") %>%
   html_text()
+stevilo_tujcev = stevilo_tujcev[c(1:20)]
 
 povprecena_trzna_vrednost = scrape(session) %>%
   html_nodes("tbody .zentriert+ .rechts") %>%
   html_text()
+povprecena_trzna_vrednost = povprecena_trzna_vrednost[c(1:20)]
 
 celotna_trzna_vrednost = scrape(session) %>%
   html_nodes("tbody .rechts+ .rechts") %>%
   html_text()
-
+celotna_trzna_vrednost = celotna_trzna_vrednost[c(1:20)]
 
 klubi_2 = scrape(session) %>%
   html_nodes(".no-border-links") %>%
-  html_text()
+  html_text() 
+klubi_2 = klubi_2[c(1:20)]
 
 grbi = scrape(session) %>%
   html_nodes(".tiny_wappen") %>%
   html_attr("src")
+grbi = grbi[c(1:20)]
+
 
 data = list(klubi_2, 
             grbi,
@@ -167,5 +192,25 @@ imena_stolpcev = c("klub",
 PL_drugi_del = data %>% 
   reduce(cbind) %>% 
   tibble::as_tibble() %>% 
-  set_names(imena_stolpcev)%>%
-  slice(1:20)
+  set_names(imena_stolpcev)
+
+PL_drugi_del = PL_drugi_del %>% 
+  tidyr::extract(
+    col = povprecna.trzna.vrednost,
+    into = c("valuta", "povprecna_trzna_vrednost_v_mil"),
+    regex = "^(.)(\\d*\\.\\d{2})m$"
+  ) %>%
+  tidyr::extract(
+    col = celotna.trzna.vrednost,
+    into = c("celotna_trzna_vrednost", "enota_za_cel_trzno_vr"),
+    regex = "^.(\\d*\\.\\d{2})(m|bn)$"
+  )  %>%
+  mutate_at(c("st.igralcev", "povprecna.starost", 
+              "stevilo.tujcev","povprecna_trzna_vrednost_v_mil",
+              "celotna_trzna_vrednost"), as.numeric) %>%
+  mutate(klub = str_replace(klub, "(\\s*FC\\s*)$", ""))%>%
+  mutate(grb =  str_replace(grb, "/tiny/", "/head/"))
+  
+PL_drugi_del %>% write.csv("podatki/podatki_drugi_del.csv", fileEncoding = "utf8")
+
+

@@ -1,0 +1,16 @@
+---
+title: "Zemljevid"
+output: html_notebook
+---
+
+```{r}
+library(sp)
+library(rgdal)
+library(raster) 
+library(rgeos)
+library(tidyverse)
+```
+
+```{r}
+svet.sp = readOGR("svet/TM_WORLD_BORDERS-0.3.shp", "TM_WORLD_BORDERS-0.3")
+```
