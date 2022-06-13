@@ -4,21 +4,30 @@ Vzorčni repozitorij za projekt pri predmetu APPR v študijskem letu 2021/22.
 
 ## Tematika
 
-Analiziral bom igralce Premier Lige. Zbral sem podatke za sezone od leta 2017-2021.
-To so vsa imena stolpecev, katere bo uporabil za analizo:
-full_name"                      "age"                            "birthday"                      
- [4] "birthday_GMT"                   "league"                         "season"                        
- [7] "position"                       "Current Club"                   "minutes_played_overall"        
-[10] "minutes_played_home"            "minutes_played_away"            "nationality"                   
-[13] "appearances_overall"            "appearances_home"               "appearances_away"              
-[16] "goals_overall"                  "goals_home"                     "goals_away"                    
-[19] "assists_overall"                "assists_home"                   "assists_away"                  
-[22] "penalty_goals"                  "penalty_misses"                 "clean_sheets_overall"          
-[25] "clean_sheets_home"              "clean_sheets_away"              "conceded_overall"              
-[28] "conceded_home"                  "conceded_away"                  "yellow_cards_overall"          
-[31] "red_cards_overall"              
+Analiziral bom klube, ki so bili del Premier Lige v letih od 2017-2021. 
 
-Stolpci so pravilnega tipa, torej dbl in Chr, ter date. Pri cemer bom stolpec date razdelil na tri.
+### Uvoz podatkov
+Podatke za analizo sem pridobil iz dveh virov oz. spletnih strani
+- [Statistike za igralce PL za sezone od 2017/2018 do 2021/2022](https://footystats.org/england/premier-league), podatke sem dobil za vsako sezono posebej v obliki csv.
+- [Podatki o tržnih vrednostih klubov PL za sezono 2019/2020](https://www.transfermarkt.com/premier-league/startseite/wettbewerb/GB1/saison_id/2020/plus/1), podatke sem "scrape-al" iz spletne strani v obliki html.
+
+Podatke sem nato očistil v datoteki `uvoz.r`.
+
+----
+
+### Vizualizacija
+
+Vizualizacijo sem naredil v datoteki `vizualizacija.r`. Naredil sem jo tudi v R Notebook-u, datoteka `vizualizacija.Rmd`.
+Prvo sem naredil primerjavo med klubi skozi vse sezone in se nato osredotočil na sezono *2019/2020*, ker sem podatke o tržnih vrednostih pridobil za to sezono. V drugem delu sem podrobneje pogledal še klub *Manchester City*. Na koncu pa še naredil vizualizacijo na zemljevidu Evrope.
+
+---- 
+
+### Analiza
+
+Za 4. fazo sem si izbral, da bom naredil napovedni model s pomočjo strojnega učenja, ki napoveduje ali dani igralec na podlagi podatkov, ki jih imam na voljo, igra na poziciji napadalca ali ne. Za napovedne spremenljivke sem vzel skoraj vse numerične spremenljivke. To je seveda **klasifikacijski** problem, zato sem si za napovedni model izbral model, ki uporablja metodo `svmLinear`, torej *metodo podpornih vektorjev*.
+* Natančnost modela: 85,6 %
+
+
 
 ## Program
 

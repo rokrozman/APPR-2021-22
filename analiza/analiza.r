@@ -11,6 +11,7 @@
 
 library(caret)
 library(kernlab)
+library(dplyr)
 
 podatki = read.csv("podatki/podatki_v.csv", fileEncoding = "utf8") 
 podatki = podatki %>% 
