@@ -68,7 +68,7 @@ PL = rbind(PL_17_18,
 PL %>% write.csv("podatki/podatki_v.csv", fileEncoding = "utf8")
 
 ###########################################################################################################################################
-#-----Podatki, kjer so zbrani le igralci, ki so nastopali vseh 5 let in v 5-ih letih niso zamenjali kluba med sezono------------------------
+#-----Podatki, kjer so zbrani le igralci, ki so nastopali vseh 5 let in v 5-ih letih niso med sezono zamenjali kluba med sezono------------------------
 ###########################################################################################################################################
 
 preob_1 = function(tabela){
