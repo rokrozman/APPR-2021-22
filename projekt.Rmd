@@ -20,7 +20,8 @@ source("lib/libraries.r", encoding="UTF-8")
 
 ## Izbira teme
 
-*** Analiziral bom klube, ki so bili del Premier Lige v letih od 2017-2021. Ker je klubov vsako leto 20, sem se odločil, da bom bolj podrobneje pogledal klub **Mancherster City**. Temo sem izbral zato, ker sem tudi sam igral nogomet in Premier Ligo še vedno spremljam. Gledal bom dejansko ali obstaja kakšna povezava med tem koliko ima vsak klub tujcev, torej igralcev izven Anglije, in številom golov doma oz. delež domačih golov. Prvo bom pogledal iz koliko različnih držav prihajajo in še kakšen delež celotne ekipe predstavljajo tujci, ter nato izračunal deleže domačih golov. Poleg tega pa bom poizkušal prikazati še povezavo s tržno vrednostjo vseh igralcev za posamezen klub.
+*** 
+Analiziral bom klube, ki so bili del Premier Lige v letih od 2017-2021. Ker je klubov vsako leto 20, sem se odločil, da bom bolj podrobneje pogledal klub **Mancherster City**. Temo sem izbral zato, ker sem tudi sam igral nogomet in Premier Ligo še vedno spremljam. Gledal bom dejansko ali obstaja kakšna povezava med tem koliko ima vsak klub tujcev, torej igralcev izven Anglije, in številom golov doma oz. delež domačih golov. Prvo bom pogledal iz koliko različnih držav prihajajo in še kakšen delež celotne ekipe predstavljajo tujci, ter nato izračunal deleže domačih golov. Poleg tega pa bom poizkušal prikazati še povezavo s tržno vrednostjo vseh igralcev za posamezen klub.
 
 <br>
 <center>
@@ -232,4 +233,4 @@ Torej bi tudi na podali te metrike izbral **metodo podpornih vektorjev**.
 #shinyAppDir("shiny", options=list(width="100%", height=600))
 ```
 
-Naredil sem tudi aplikacijo Shiny, ki prikazuje število zadetih in zgrešenih penalov.
+Naredil sem tudi aplikacijo Shiny, ki prikazuje število zadetih in zgrešenih penalov za vsak klub in sezono.
