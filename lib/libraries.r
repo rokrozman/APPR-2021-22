@@ -1,12 +1,30 @@
+library(readr)
+library(dplyr)
+library(tidyr)
 library(knitr)
 library(rvest)
 library(gsubfn)
-library(tidyr)
 library(tmap)
 library(shiny)
-library(readr)
-library(dplyr)
 library(tibble)
+library(gghighlight)
+
+library(ggalt)
+library(caret)
+library(kernlab)
+library(dplyr)
+library(PRROC)
+library(ROCR)
+
+library(ggplot2)
+library(ggforce)
+library(ggimage)
+library(scales)
+library(mosaic)
+
+library(shinyWidgets)
+
+
 
 options(gsubfn.engine="R")
 

@@ -61,7 +61,7 @@ Prvi graf prikazuje število različnih držav iz katerih prihajajo igralci za p
 Iz grafa lahko razberemo, da je klub **Manchester City = MCI**, ki ga bom tudi podrobneje analiziral med klubi, ki imajo najmanj mednarodno ekipo.
 
 ```{r graf_1, echo=FALSE, fig.align='center'}
-graf1
+graf_1
 ```
 
 
@@ -184,8 +184,8 @@ graf_clus_2
 Na koncu sem narisal še diagram, ki sicer potrjuje mojo hipotezo, ampak hkrati tudi prikazuje, da je veliko napadalcev, ki pade tudi v območje spodaj levo in celo levo zgoraj.
 
 
-```{r diagram_clsu_4, echo=FALSE, fig.align='center'}
-diagram_clus_4
+```{r diagram_clus, echo=FALSE, fig.align='center'}
+diagram_clus
 ```
 
 
@@ -230,7 +230,7 @@ Torej bi tudi na podali te metrike izbral **metodo podpornih vektorjev**.
 
 ### Shiny 
 ```{r shiny}
-#shinyAppDir("shiny", options=list(width="100%", height=600))
+shinyAppDir("shiny", options=list(width="100%", height=600))
 ```
 
 Naredil sem tudi aplikacijo Shiny, ki prikazuje število zadetih in zgrešenih penalov za vsak klub in sezono.

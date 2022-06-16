@@ -1,11 +1,4 @@
 # 3. faza: Vizualizacija podatkov
-library(readr)
-library(dplyr)
-library(ggplot2)
-library(ggforce)
-library(ggimage)
-library(scales)
-library(tidyr)
 
 ###############################################################################
 # Podatki
@@ -71,7 +64,7 @@ graf_1 = tabela_1 %>%
   ) +
   scale_color_gradientn(colours = rainbow(15))
 
-print(graf_1)
+#print(graf_1)
 
 ###############################################################################
 # Graf 2
@@ -130,7 +123,7 @@ graf_2 = tabela_3 %>%
   guides(fill=guide_legend(ncol=2)) +
   theme(legend.position="right")
 
-print(graf_2)
+#print(graf_2)
 
 ###############################################################################
 # Graf 3
@@ -165,7 +158,7 @@ graf_3 = tabela_2 %>%
   )+
   facet_wrap(~ klub, ncol = 4) 
 
-print(graf_3)
+#print(graf_3)
 
 ###############################################################################
 # Graf 4
@@ -203,7 +196,7 @@ tabela_6_4 = podatki_2 %>%
 tabela_6_koncna = tabela_6_3 %>% full_join(tabela_6_4, by = c("klub", "sezona"))
 
 
-library(gghighlight)
+
 graf_4 = tabela_6_koncna %>%
   ggplot(
     mapping = aes(x = sezona, y = delez.tujcev.klub, group = klub, color=klub)
@@ -217,7 +210,7 @@ graf_4 = tabela_6_koncna %>%
     y = "Delež tujcev v klubu") +
   theme_classic()
 
-print(graf_4)
+#print(graf_4)
 
 ###############################################################################
 # Graf 5
@@ -241,7 +234,7 @@ graf_5 = tabela_6_koncna %>%
     color = "Delež golov na gostovanju"
   )
 
-print(graf_5)
+#print(graf_5)
 
 ###############################################################################
 # Graf 6
@@ -283,7 +276,7 @@ graf_6 = tabela_3_1 %>% group_by(sezona) %>%
     axis.text.x = element_text(angle = 0, vjust = 0.5),
     axis.title.x = element_text(vjust = 0))
 
-print(graf_6)
+#print(graf_6)
 
 ###############################################################################
 # Graf 7
@@ -313,7 +306,7 @@ graf_7 = tabela_7 %>%
     colour = "Vrsta deleža") +
   theme_classic()
 
-print(graf_7)
+#print(graf_7)
 
 ###############################################################################
 # Graf 8
@@ -330,7 +323,7 @@ tabela_4$pozicija[tabela_4$pozicija == "Midfielder"] = "Vezist"
 tabela_4$pozicija[tabela_4$pozicija == "Goalkeeper"] = "Golman"
 
 
-graf_9 = tabela_4 %>% filter(minute.skupno > 1000) %>%
+graf_8 = tabela_4 %>% filter(minute.skupno > 1000) %>%
   ggplot(
     mapping = aes(x = goli.gostovanje, fill =pozicija)
   ) +
@@ -346,7 +339,7 @@ graf_9 = tabela_4 %>% filter(minute.skupno > 1000) %>%
   )+
   theme_classic() 
 
-print(graf_8)
+#print(graf_8)
 
 ###############################################################################
 # Graf 9
@@ -372,13 +365,13 @@ graf_9 = podatki_3 %>%
   theme_minimal() 
 
 
-print(graf_9)
+#print(graf_9)
 
 ###############################################################################
 # Zemljevid
 ###############################################################################
 
-library(mosaic)
+
 source("lib/uvozi.zemljevid.r")
 
 zemljevid <-
@@ -454,4 +447,4 @@ zemljevid_kartonov = tabela_zemljevid %>% right_join(zemljevid, by ="nacionalnos
             aes(x = long, y = lat, group = group), 
             color = "white", size = 0.1)
 
-print(zemljevid_kartonov)
+#print(zemljevid_kartonov)

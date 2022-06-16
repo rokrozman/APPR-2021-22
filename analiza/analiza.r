@@ -54,11 +54,10 @@ graf_clus_2 = tibble(
   ) +
   xlim(0, 8) +
   theme_classic()
-graf_clus_2
+#graf_clus_2
 
 skupine.2 = dendrogram %>% cutree(k = 4) %>% as.ordered()
 
-library(ggalt)
 diagram.skupine = function(podatki, oznake, skupine, k) {
   podatki = podatki %>%
     bind_cols(skupine) %>%
@@ -97,11 +96,6 @@ diagram_clus = diagram.skupine(podatki_clus, podatki_clus$pozicija, skupine.2, 4
 
 # to je seveda klasifikacijski problem
 
-library(caret)
-library(kernlab)
-library(dplyr)
-library(PRROC)
-library(ROCR)
 
 
 podatki = podatki_0 %>%
