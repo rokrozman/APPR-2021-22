@@ -1,10 +1,5 @@
 # 2. faza: Uvoz podatkov
 
-
-library(dplyr)
-library(readr)
-library(tidyr)
-
 #PL_17_18 = read.csv("podatki/england-premier-league-players-2017-to-2018-stats.csv", fileEncoding = "utf8") 
 #PL_18_19 = read.csv("podatki/england-premier-league-players-2018-to-2019-stats.csv", fileEncoding = "utf8") 
 #PL_19_20 = read.csv("podatki/england-premier-league-players-2019-to-2020-stats.csv", fileEncoding = "utf8")
@@ -12,20 +7,20 @@ library(tidyr)
 #PL_21_22 = read.csv("podatki/england-premier-league-players-2021-to-2022-stats.csv", fileEncoding = "utf8")
 
 PL_17_18 = read_csv("podatki/england-premier-league-players-2017-to-2018-stats.csv", locale = locale(encoding = "utf8"), col_types = cols(
-  .default = col_guess(),
-  position = col_factor())) 
+  .default = col_guess()))
+#  position = col_factor())) 
 PL_18_19 = read_csv("podatki/england-premier-league-players-2018-to-2019-stats.csv", locale = locale(encoding = "utf8"), col_types = cols(
-  .default = col_guess(),
-  position = col_factor()))
+  .default = col_guess()))
+#  position = col_factor()))
 PL_19_20 = read_csv("podatki/england-premier-league-players-2019-to-2020-stats.csv", locale = locale(encoding = "utf8"), col_types = cols(
-  .default = col_guess(),
-  position = col_factor())) 
+  .default = col_guess()))
+#  position = col_factor())) 
 PL_20_21 = read_csv("podatki/england-premier-league-players-2020-to-2021-stats.csv", locale = locale(encoding = "utf8"), col_types = cols(
-  .default = col_guess(),
-  position = col_factor())) 
+  .default = col_guess()))
+#  position = col_factor())) 
 PL_21_22 = read_csv("podatki/england-premier-league-players-2021-to-2022-stats.csv", locale = locale(encoding = "utf8"), col_types = cols(
-  .default = col_guess(),
-  position = col_factor()))
+  .default = col_guess()))
+#  position = col_factor()))
 
 ###########################################################################################################################################
 #------Vsi zbrani podatki, ki so le malo preoblikovani

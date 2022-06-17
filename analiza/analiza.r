@@ -25,12 +25,12 @@ dendrogram = podatki_clus[, -1] %>%
   dist() %>%
   hclust()
 
-plot(
-  dendrogram,
-  labels = podatki_clus$pozicija,
-  ylab = "višina",
-  main = NULL
-)
+#plot(
+#  dendrogram,
+#  labels = podatki_clus$pozicija,
+#  ylab = "višina",
+#  main = NULL
+#)
 
 graf_clus_2 = tibble(
   k = 307:1,
